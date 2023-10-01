@@ -25,7 +25,32 @@ namespace EditorHtml
             }while(Console.ReadKey().Key != ConsoleKey.Escape);
 
             Console.WriteLine("---------------");
-            Viewer.Show(file.ToString());
+            Console.WriteLine("Deseja salvar o arquivo?");
+            Console.WriteLine("1 - Salvar");
+            Console.WriteLine("2 - Sair");
+            short res = short.Parse(Console.ReadLine());
+            switch(res)
+            {
+                case 1: Salvar(file);break;
+                case 2: Menu.Show();break;
+            }
+            Viewer.Show(file.ToString());   
+            Menu.Show();      
+        }
+
+        static void Salvar( StringBuilder? file)
+        {
+            Console.Clear();
+            Console.WriteLine("Qual o melhor caminho para salvar o arquivo? ");
+            var path = Console.ReadLine();
+
+            using(var folder = new StreamWriter(path))
+            {
+                folder.Write(file);
+            }
+            Console.WriteLine($"Arquivo {path} salvo com sucesso!");
+            Console.ReadLine();
+            
             
         }
     }
